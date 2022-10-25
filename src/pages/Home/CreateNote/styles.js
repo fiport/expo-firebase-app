@@ -6,6 +6,7 @@ export const Container = styled.View`
 `;
 
 export const ContainerHeader = styled.View`
+    margin-bottom: 12px;
     height: 60px;
     width: 100%;
     padding: 15px;
@@ -42,11 +43,11 @@ export const CardNoteAction = styled.View`
     align-items: center;
 `;
 
-export const CardTitle = styled.Text`
+export const PageTitle = styled.Text`
     margin-bottom: 5px;
     font-weight: bold;
     font-size: 16px;
-    color: #FFF;
+    color: #C4C4CC;
 `;
 
 export const CardDescription = styled.Text`

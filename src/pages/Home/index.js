@@ -6,11 +6,22 @@ import { firebaseConfig } from "../../config/firebaseconfig"
 import {collection, getDocs, getFirestore} from "firebase/firestore"
 import { ScrollView } from "react-native-gesture-handler"
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import { faker } from '@faker-js/faker';
 
-export default function Home() {
+import Flatlist from "../../components/Flatlist"
+
+export default function Home({navigation}) {
     const [notes, setNotes] = useState([])
 
-    const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+    const data = [...Array(30).keys()].map((item, index) => {
+        return {
+            key: faker.datatype.uuid(),
+            image: 'https://source.unsplash.com/1024x768/?user',
+            name: faker.internet.userName(),
+            email: faker.internet.email(),
+            password: faker.internet.password(),
+        };
+    });
 
     async function fetchData() {
        const app = initializeApp(firebaseConfig)
@@ -30,28 +41,13 @@ export default function Home() {
     }, [])
     return (
         <Container>
-            <SafeAreaView>
+            <SafeAreaView style={{flex: 1}}>
                 <ContainerHeader>
                     <Icon name="ellipsis-v" size={24} color="#FFF" />
-                    <Icon name="comment-medical" size={24} color="#FFF" />
+                    <Icon name="comment-medical" size={24} color="#FFF" onPress={() => navigation.navigate('CreateNote')}/>
                 </ContainerHeader>
 
-                <ContainerNotes>
-                    <ScrollView showsVerticalScrollIndicator={false}>
-                        {numbers.map(item =>
-                            <CardNote key={item}>
-                                <CardNoteContent>
-                                    <CardTitle>Título da nota</CardTitle>
-                                    <CardDescription>Esta é a descrição da primeira nota</CardDescription>
-                                </CardNoteContent>
-
-                                <CardNoteAction>
-                                    <Text>Del</Text>
-                                </CardNoteAction>
-                            </CardNote>
-                        )}
-                    </ScrollView>
-                </ContainerNotes>
+                <Flatlist items={data} />
             </SafeAreaView>
         </Container>
     )

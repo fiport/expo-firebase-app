@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react"
-import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword} from "firebase/auth"
+import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendEmailVerification, onAuthStateChanged} from "firebase/auth"
 import {initializeApp} from "firebase/app"
 import {firebaseConfig} from "../../config/firebaseconfig"
 
 import { 
-    SafeAreaView, 
-    Text, 
-    View ,
+    SafeAreaView
 } from "react-native"
 import { 
     ButtonCreate,
@@ -42,15 +40,15 @@ export default function Login({navigation}) {
         }
     }
 
-    const handleCreateAccount = () => {
-        createUserWithEmailAndPassword(auth, email, password)
-            .then(() => {
-                console.log('Account created!')
-            })
-            .catch(err => {
-                console.log(err)
-            })
-    }
+    // const handleCreateAccount = async () => {
+    //     await createUserWithEmailAndPassword(auth, email, password)
+    //         .then(() =>{
+    //             sendEmailVerification(res.user)
+    //         })
+    //         .catch(err => {
+    //             console.log(err)
+    //         })
+    // }
 
     const handleSignIn = async () => {
         setLoading(true)
